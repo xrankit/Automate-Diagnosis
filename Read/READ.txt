@@ -1,3 +1,9 @@
+In such unprecedented times, with a fragile healthcare infrastructure, 
+the medical facilities for people are scarce and even fewer for people
+ with special needs. The healthcare sector got so pre-occupied with 
+Covid-19 cases that people with other ailments didn't even get a 
+chance to avail medical assistance. 
+
 In India everyday many humans are affected because the patient are not
  timely and properly and also for real time conventional parameters are
  not efficiently work on different situations, frequently check-up for 
@@ -5,10 +11,11 @@ patient condition also not possible. To overcome these kind of
 situations, our system is beneficial. Our system is designed to be used
  in Home or hospital for measuring and monitoring various parameter 
 like ECG, Body temperature and Blood pressure. By using new technology
- IOT integration with Machine Learning makes all objects interconnected and it has
- been recognized as the next technical revolution. The results can be 
-recorded using Raspberry Pi4 displayed on a our app or Website. 
-Relatives, patients or Doctors can login to a website and view those results
+ IOT integration with Machine Learning makes all objects interconnected 
+and it has been recognized as the next technical revolution. The results 
+can be recorded using Raspberry Pi4 displayed on a our app or Website. 
+Relatives, patients or Doctors can login to a website and view those 
+results
 
 
 The objective of developing monitoring systems is to reduce health care 
