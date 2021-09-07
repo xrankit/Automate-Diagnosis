@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="doctorpatients" size="1.000000 0.587649" />
+    <ImageTarget name="anatomymodel" size="1.000000 0.587649" />
+    <ImageTarget name="backbonemodel" size="1.000000 0.587649" />
+    <ImageTarget name="brainmodel" size="1.000000 0.587649" />
+    <ImageTarget name="heartmodel" size="1.000000 0.587649" />
+    <ImageTarget name="humandigestivemodel" size="1.000000 0.587649" />
+    <ImageTarget name="kidneymodel" size="1.000000 0.587649" />
+    <ImageTarget name="lungsmodel" size="1.000000 0.587649" />
+  </Tracking>
+</QCARConfig>
