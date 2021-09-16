@@ -21,3 +21,7 @@ results
 The objective of developing monitoring systems is to reduce health care 
 costs by reducing physician office visits, hospitalizations, and 
 diagnostic testing procedure.
+Medical apps are trending right now, being the second most popular kind 
+of application after games for smartphones. AR can provide additional 
+possibilities to users of medical applications: the doctors will be able 
+to see a 3D image of an MRI while talking to patients or analysing their movements
