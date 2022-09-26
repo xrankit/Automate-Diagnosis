@@ -1,0 +1,445 @@
+<!--GUI for Breast Cancer Detection Application using SVM-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap" rel="stylesheet">
+  <title>Cancer Detection</title>
+  <style>
+    /*just bg and body style*/
+    body {
+      margin: 40px;
+      background-color: #DDDDDD;
+
+    }
+
+    .container {
+      border-radius: 50px;
+      text-align: center;
+
+    }
+
+    .btn-container {
+      background: linear-gradient(90deg,#041341,#2ebff0, #DEEEEE);
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 50px;
+    }
+
+    .head {
+      font-weight: bolder;
+    }
+
+    .btn-primary {
+      border-color: #000000 !important;
+      color: black;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+      background-color: #2ebff0 !important;
+      border-color: #000000 !important;
+      margin: 5px;
+      margin-left: 260px;
+      padding: 10px;
+    }
+
+.btn-primary:hover
+{
+  color:black !important;
+  background-color: #FFE3F3 !important;
+}
+
+    label {
+      width: 50%;
+    }
+
+    #predict {
+      display: none;
+    }
+
+    .form-group {
+      padding: 5px;
+    }
+
+    .main {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(45deg,#96F7D2,#FFC0C2) no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      border-radius: 50px;
+
+    }
+
+    .main .content {
+      max-width: auto;
+      color: black;
+        margin: 20px;
+    }
+
+    .main .content h2 {
+      color: black;
+      font-size: 2em;
+      font-weight: 500;
+      margin: 20px;
+    }
+
+    .main .content h2 span {
+      font-size: 2.8em;
+      font-weight: 600;
+        margin: 20px;
+    }
+
+
+
+    .title {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+    }
+
+
+    .section-title {
+      position: relative;
+      color: black;
+      font-size: 2.2em;
+      font-weight: 800;
+      margin-bottom: 60px;
+    }
+
+    .about .content {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .about .content .col-left {
+      position: relative;
+      width: 45%;
+    }
+
+    .about .content .col-right {
+      position: relative;
+      width: 50%;
+    }
+
+    .about .content .col-left .img-card {
+      position: relative;
+      width: 100%;
+      min-height: 450px;
+    }
+
+    /* Setting up the image in the "Who am I " section */
+    .about .content .col-left .img-card img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-left: 20px;
+    }
+
+    .about .content .col-right .content-title {
+      font-size: 2em;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .about .content .col-right .paragraph-text {
+      font-size: 1em;
+      margin-bottom: 50px;
+      margin-right: 20px;
+    }
+
+
+    .services .content {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      flex-direction: row;
+      margin-top: 20px;
+    }
+
+    .title p {
+      font-size: 1em;
+      width: 80%;
+    }
+
+    .services .content .card {
+      background:  linear-gradient(45deg,#96F7D2,#FFC0C2);;
+      width: 350px;
+      margin: 10px;
+      padding: 25px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 15%),
+        inset -5px -5px -5px rgba(255, 255, 255, 0.5),
+        5px 5px 5px rgba(0, 0, 0, 0.05),
+        -5px -5px -5px rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      height: 340px;
+    }
+
+    .services .content .card .box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      background: #F3F1F5;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      transition: 0.5s;
+      display: flex;
+    }
+
+
+    .services .content .card:hover .box {
+      transform: translateY(-50px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(80deg, #7C83FD, #00edff);
+    }
+
+    .services .content .card .box .cont {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .services .content .card :hover.box .cont h3 {
+      z-index: 1;
+      transition: 0.5s;
+    }
+
+    .services .content .card :hover.box .cont p {
+      z-index: 1;
+      transition: 0.5s;
+    }
+
+
+
+
+    header {
+      z-index: 999;
+      position: fixed;
+      background: #0F52BA;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.5s ease;
+    }
+
+    /* Setting up the properties of Navigation Bar when sticky */
+    header.sticky {
+      background: #00ADB5;
+      padding: 10px 200px;
+    }
+
+    /* Setting up the properties of Brand on Navigation Bar */
+    header .brand {
+      color: #FFF3B2;
+      font-size: 2.2em;
+      font-weight: 700;
+      text-decoration: none;
+      animation: animate 8s linear infinite;
+    }
+
+    header .navigation {
+      position: relative;
+    }
+
+    /* Setting up properties of the Navigation Bar elements */
+    header .navigation a {
+      color: #fff;
+      font-size: 1em;
+      font-weight: 800;
+      text-decoration: none;
+      margin-left: 30px;
+    }
+
+    /* Setting up properties of the Navigation Bar elements when hoverd over */
+    header .navigation a:hover {
+      color: #FCE38A;
+    }
+
+
+
+
+
+
+
+
+
+
+  </style>
+  <!--Font Awesome-->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header style="font-family: 'STIX Two Math', serif;box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.23);">
+  <!-- The Navigation Bar Branding -->
+  <a href="#main" class="brand" media="screen">
+    Prostate Cancer Detection </a>
+  <div class="navigation">
+    <a href="{{ url_for('index')}}">Home</a>
+   
+  </div>
+</header>
+
+<section class="main" id="main"  style="font-family: 'STIX Two Math', serif;box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.5);">
+    <div class="content">
+      <h2><b>What is Prostate Cancer?</b></h2>
+      <h3>
+        Cancer starts when cells in the body begin to grow out of control. Cells in nearly any part of the body can become cancer cells, and can then spread to other areas of the body.
+        Prostate cancer begins when cells in the prostate gland start to grow out of control. The prostate is a gland found only in males. It makes some of the fluid that is part of semen.
+
+        The prostate is below the bladder (the hollow organ where urine is stored) and in front of the rectum (the last part of the intestines). Just behind the prostate are glands called seminal vesicles that make most of the fluid for semen. The urethra, which is the tube that carries urine and semen out of the body through the penis, goes through the center of the prostate.
+        Almost all prostate cancers are adenocarcinomas. These cancers develop from the gland cells (the cells that make the prostate fluid that is added to the semen).
+        Some prostate cancers grow and spread quickly, but most grow slowly. In fact, autopsy studies show that many older men (and even some younger men) who died of other causes also had prostate cancer that never affected them during their lives. In many cases, neither they nor their doctors even knew they had it.
+
+</h3>
+      </div>
+  </section>
+
+
+
+  <section class="about" id="about" style="background-color: #C1F6E7; border-radius: 50px; font-family: 'STIX Two Math', serif; box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.5);">
+    <div class="title reveal">
+      <h2 class="section-title" style="margin-top:40px;">
+        What do the numbers say?
+      </h2>
+    </div>
+    <div class="content">
+      <div class="column col-left reveal">
+        <div class="img-card">
+          <img src="static/prostate2.png" alt="loading">
+        </div>
+      </div>
+
+      <!-- Who am I description devision -->
+      <div class="column col-right reveal">
+        <h2 class="content-title">The Statistics of Prostate Cancer per annum</h2>
+        <p class="paragraph-text">
+            Prostate cancer is the most common cancer among men, except for skin cancer. This year, an estimated 248,530 men in the United States will be diagnosed with prostate cancer.
+
+            Prostate cancer incidence rates rose sharply in the late 1980s and early 1990s due increased screening with the PSA test. But from 2013 to 2017, incidence rates have stayed steady. Around 60% of cases are diagnosed in men age 65 or older. The average age of diagnosis is 66 years. The disease rarely occurs in those younger than 40. The number of new cases diagnosed in Black men is nearly 80% higher than the number of new cases diagnosed in white men.
+            
+            The 5-year survival rate tells you what percent of people live at least 5 years after the cancer is found. Percent means how many out of 100. The 5-year survival rate for people with prostate cancer is 98%. The 10-year survival rate is also 98%.
+            
+            Most prostate cancers (89%) are found when the disease is in only the prostate and nearby organs. This is referred to as the local or regional stage. The 5-year survival rate for most people with local or regional prostate cancer is nearly 100%. For people diagnosed with prostate cancer that has spread to other parts of the body, the 5-year survival rate is 30%.
+            
+            Prostate cancer is the second leading cause of cancer death in men in the United States. It is estimated that 34,130 deaths from this disease will occur this year.
+            
+            However, the death rate dropped by around half from the mid-1990s to the mid-2010s as a result of advances in screening and treatment. From 2014 to 2018, the death rate stayed steady. A person’s individual survival depends on the type of prostate cancer and the stage of the disease. There are more than 3.1 million survivors of prostate cancer in the United States today.
+            
+            It is important to remember that statistics on the survival rates for people with prostate cancer are an estimate. The estimate comes from annual data based on the number of people with this cancer in the United States. Also, experts measure the survival statistics every 5 years. So the estimate may not show the results of better diagnosis or treatment available for less than 5 years. Talk with your doctor if you have any questions about this information
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="container" id="skills" style="margin-top:100px;">
+    <div class="row">
+      <div class="col-md-12" >
+        <h1 class="head" style="font-family: 'STIX Two Math', serif;">Predict whether or not you are susceptible to Prostate Cancer </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">       
+        <div class="btn-container">
+
+          <!-- Main Input For Receiving Query to our ML -->
+          <form action="{{ url_for('prostateResult')}}" method="post" class="form-inline">
+            <div class="row">
+              <div class="col-md-6">
+              <!--  <img class="image" src="{{url_for('static', filename='img.jpeg')}}" width="100%" height="100%" /> -->
+                  <img class="image" src="static/prostate1.jpg" width="100%" height="100%" />
+              </div>
+              <div class="col-md-6">
+                <div class="container">
+                  <h4>Enter Cell Attributes</h4>
+                  <div class="form-group">
+                    
+                    <input type="text" class="form-control" name="radius" required="required"
+                    placeholder="Radius">
+                  </div>
+                  <div class="form-group">
+                   
+                    <input type="number" class="form-control" name="texture" required="required"
+                    placeholder="Texture">
+                  </div>
+                  <div class="form-group">
+                 
+                    <input type="text" class="form-control" name="perimeter" required="required" 
+                    placeholder="Perimeter"/>
+                  </div>
+                  <div class="form-group">
+               
+                    <input type="text" class="form-control" name="area" required="required"
+                    placeholder="Area" />
+                  </div>
+                  <div class="form-group">
+
+                    <input type="text" class="form-control" name="smoothness" required="required"
+                    placeholder="Smoothness" />
+                  </div>
+                  <div class="form-group">
+                   
+                    <input type="text" class="form-control" name="compactness" required="required"
+                    placeholder="Compactness" />
+                  </div>
+                  <div class="form-group">
+                   
+                    <input type="text" class="form-control" name="symmetry" required="required" 
+                    placeholder="Symmetry"/>
+                  </div>
+                  <div class="form-group">
+                  
+                    <input type="text" class="form-control" name="fractal_dimension" required="required"
+                    placeholder="Fractal Dimension" />
+                  </div>
+
+                
+                  <button type="submit" class="btn btn-primary btn-lg">Predict Cancer</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        <br />
+        <center>
+        <h1 style="background:#ffffff; border-radius: 20px; margin-left:200px; margin-right: 200px;">{{prediction_text}}</h1>
+        </center>
+        <br />
+
+
+<script src="script.js" charset="utf-8"></script>
+</body>
+
+</html>
