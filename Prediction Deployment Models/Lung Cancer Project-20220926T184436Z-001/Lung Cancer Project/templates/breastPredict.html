@@ -1,0 +1,340 @@
+<!--GUI for Breast Cancer Detection Application using SVM-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap" rel="stylesheet">
+  <title>Cancer Detection</title>
+  <style>
+    /*just bg and body style*/
+    body {
+      margin: 40px;
+      background-color: #DDDDDD;
+
+    }
+
+    .container {
+      border-radius: 50px;
+      text-align: center;
+    }
+
+    .btn-container {
+      background: linear-gradient(45deg,#96F7D2,#FFC0C2, #96BAFF);
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 50px;
+    }
+
+    .head {
+      font-weight: bolder;
+    }
+
+    .btn-primary {
+      border-color: #ff33f !important;
+      color: black;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+      background-color: #9DDFD3 !important;
+      border-color: #de5499 !important;
+      margin: 5px;
+      margin-left: 260px;
+      padding: 10px;
+    }
+
+.btn-primary:hover
+{
+  color:black !important;
+  background-color: #FFE3E3 !important;
+}
+
+    label {
+      width: 50%;
+    }
+
+    #predict {
+      display: none;
+    }
+
+    .form-group {
+      padding: 5px;
+    }
+
+    .main {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(45deg,#96F7D2,#FFC0C2) no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      border-radius: 50px;
+
+    }
+
+    .main .content {
+      max-width: auto;
+      color: black;
+        margin: 20px;
+    }
+
+    .main .content h2 {
+      color: black;
+      font-size: 2em;
+      font-weight: 500;
+      margin: 20px;
+    }
+
+    .main .content h2 span {
+      font-size: 2.8em;
+      font-weight: 600;
+        margin: 20px;
+    }
+
+
+
+    .title {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+    }
+
+
+    .section-title {
+      position: relative;
+      color: black;
+      font-size: 2.2em;
+      font-weight: 800;
+      margin-bottom: 60px;
+    }
+
+    .about .content {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .about .content .col-left {
+      position: relative;
+      width: 45%;
+    }
+
+    .about .content .col-right {
+      position: relative;
+      width: 50%;
+    }
+
+    .about .content .col-left .img-card {
+      position: relative;
+      width: 100%;
+      min-height: 450px;
+    }
+
+    /* Setting up the image in the "Who am I " section */
+    .about .content .col-left .img-card img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-left: 20px;
+    }
+
+    .about .content .col-right .content-title {
+      font-size: 2em;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .about .content .col-right .paragraph-text {
+      font-size: 1em;
+      margin-bottom: 50px;
+      margin-right: 20px;
+    }
+
+
+    .services .content {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      flex-direction: row;
+      margin-top: 20px;
+    }
+
+    .title p {
+      font-size: 1em;
+      width: 80%;
+    }
+
+    .services .content .card {
+      background:  linear-gradient(45deg,#96F7D2,#FFC0C2);;
+      width: 350px;
+      margin: 10px;
+      padding: 25px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 15%),
+        inset -5px -5px -5px rgba(255, 255, 255, 0.5),
+        5px 5px 5px rgba(0, 0, 0, 0.05),
+        -5px -5px -5px rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      height: 340px;
+    }
+
+    .services .content .card .box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      background: #F3F1F5;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      transition: 0.5s;
+      display: flex;
+    }
+
+
+    .services .content .card:hover .box {
+      transform: translateY(-50px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(80deg, #7C83FD, #00edff);
+    }
+
+    .services .content .card .box .cont {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .services .content .card :hover.box .cont h3 {
+      z-index: 1;
+      transition: 0.5s;
+    }
+
+    .services .content .card :hover.box .cont p {
+      z-index: 1;
+      transition: 0.5s;
+    }
+
+
+
+
+    header {
+      z-index: 999;
+      position: fixed;
+      background: #0F52BA;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.5s ease;
+    }
+
+    /* Setting up the properties of Navigation Bar when sticky */
+    header.sticky {
+      background: #00ADB5;
+      padding: 10px 200px;
+    }
+
+    /* Setting up the properties of Brand on Navigation Bar */
+    header .brand {
+      color: #FFF3B2;
+      font-size: 2.2em;
+      font-weight: 700;
+      text-decoration: none;
+      animation: animate 8s linear infinite;
+    }
+
+    header .navigation {
+      position: relative;
+    }
+
+    /* Setting up properties of the Navigation Bar elements */
+    header .navigation a {
+      color: #fff;
+      font-size: 1em;
+      font-weight: 800;
+      text-decoration: none;
+      margin-left: 30px;
+    }
+
+    /* Setting up properties of the Navigation Bar elements when hoverd over */
+    header .navigation a:hover {
+      color: #FCE38A;
+    }
+
+
+
+
+
+
+
+
+
+
+  </style>
+  <!--Font Awesome-->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header style="font-family: 'STIX Two Math', serif;box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.23);">
+  <!-- The Navigation Bar Branding -->
+ <a href="#main" class="brand" media="screen">
+    Cancer Detection </a>
+  <div class="navigation">
+    <a href="{{ url_for('index')}}">Home</a>
+   
+  </div>
+</header>
+
+
+
+
+
+  <section class="about" style="background-color: #C1F6E7; border-radius: 50px; font-family: 'STIX Two Math', serif; box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.5);">
+    <div class="title reveal">
+     <center><h1 class="section-title" style="margin-top:40px;">
+        Breast Cancer Prediction 
+      </h1>
+      <h2 class="section-title" style="margin-top:40px;">
+       Breast Cancer Result : 
+       <br><br>
+    {{output}}
+      </h2>
+      
+    </center>
+    </div>
+   
+  </section>
+    
+
+
+
+<script src="script.js" charset="utf-8"></script>
+</body>
+
+</html>
