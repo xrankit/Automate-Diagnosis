@@ -20,7 +20,7 @@ attrib_info = """
     - Irritability 1.Yes, 2.No.
     - delayed healing 1.Yes, 2.No.
     - partial paresis 1.Yes, 2.No.
-    - muscle stiness 1.Yes, 2.No.
+    - muscle stivtness 1.Yes, 2.No.
     - Alopecia 1.Yes, 2.No.
     - Obesity 1.Yes, 2.No.
     - Class 1.Positive, 2.Negative.
