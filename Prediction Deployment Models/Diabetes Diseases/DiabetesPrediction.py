@@ -58,7 +58,14 @@ Y_pred_lr = lr.predict(x_test)
 score_lr = round(accuracy_score(Y_pred_lr,y_test)*100,2)
 
 print("The accuracy score achieved using Logistic Regression is: "+str(score_lr)+" %")
+
 # Creating a pickle file for the classifier
+
+print('Classification Report\n', classification_report(y_test, Y_pred_lr))
+print('Accuracy: {}%\n'.format(round((accuracy_score(y_test, Y_pred_lr)*100),2)))
+
+cm = confusion_matrix(y_test, Y_pred_lr)
+print(cm)
 
 filename = 'diabetes-disease-prediction-model.pkl'
 pickle.dump(lr, open(filename, 'wb'))
