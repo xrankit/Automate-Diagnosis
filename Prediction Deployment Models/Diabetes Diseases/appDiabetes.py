@@ -4,14 +4,14 @@ import pickle
 import numpy as np
 
 # Load the Random Forest CLassifier model
-filename = 'heart-disease-prediction-knn-model.pkl'
+filename = 'diabetes-disease-prediction-model.pkl'
 model = pickle.load(open(filename, 'rb'))
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-	return render_template('Heart Main.html')
+	return render_template('Diabetes Main.html')
 
 
 @app.route('/predict', methods=['GET','POST'])
