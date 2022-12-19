@@ -21,6 +21,7 @@ body{
 	background: linear-gradient(45deg, #161616, #383436, #161616);
 	background-size: 500% 500%;
 	animation: change-gradient 10s ease-in-out infinite;
+	background-color: blue;
 }
 @keyframes change-gradient {
 	0%{

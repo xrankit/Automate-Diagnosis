@@ -18,24 +18,19 @@ def home():
 def predict():
     if request.method == 'POST':
 
-        age = int(request.form['age'])
-        sex = request.form.get('sex')
-        cp = request.form.get('cp')
-        trestbps = int(request.form['trestbps'])
-        chol = int(request.form['chol'])
-        fbs = request.form.get('fbs')
-        restecg = int(request.form['restecg'])
-        thalach = int(request.form['thalach'])
-        exang = request.form.get('exang')
-        oldpeak = float(request.form['oldpeak'])
-        slope = request.form.get('slope')
-        ca = int(request.form['ca'])
-        thal = request.form.get('thal')
+        Pregnancies = int(request.form['Pregnancies'])
+        Glucose = request.form.get('Glucose')
+        BloodPressure = request.form.get('BloodPressure')
+        SkinThickness = int(request.form['SkinThickness'])
+        Insulin = int(request.form['Insulin'])
+        BMIs = float(request.form['BMI'])
+        DiabetesPedigreeFunction = float(request.form['DiabetesPedigreeFunction'])
+        Age = int(request.form['Age'])
         
-        data = np.array([[age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal]])
+        data = np.array([[Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMIs,DiabetesPedigreeFunction,Age]])
         my_prediction = model.predict(data)
         
-        return render_template('resultHeart.html', prediction=my_prediction)
+        return render_template('resultDiabetes.html', prediction=my_prediction)
         
         
 
